@@ -1,0 +1,40 @@
+import sqlite3
+from dataclasses import dataclass
+
+
+@dataclass
+class MoviesStorage:
+    _db: sqlite3.Connection
+    _cursor: sqlite3.Cursor
+
+    @classmethod
+    def default(cls):
+        db = sqlite3.connect('movies.db')
+        db.row_factory = sqlite3.Row  # <-- enables dict-like access
+        return cls(_db=db, _cursor=db.cursor())
+
+    def list(self):
+        self._cursor.execute('SELECT * FROM movies')
+        return self._cursor.fetchall()
+
+    def find_by_id(self, movie_id: int):
+        self._cursor.execute('SELECT * FROM movies WHERE ID = ?', (movie_id,))
+        return self._cursor.fetchone()
+
+    def search(self, query: str):
+        self._cursor.execute(
+            'SELECT * FROM movies WHERE title like ? OR actors LIKE ?',
+            (f"%{query}%", f"%{query}%")
+        )
+        return self._cursor.fetchall()
+
+    def add_movie(self, form: dict):
+        self._cursor.execute(
+            "INSERT INTO movies (title, year, actors) VALUES (:title, :year, :actors)",
+            {"title": form['title'], "year": form['year'], "actors": form['actors']},
+        )
+        self._db.commit()
+
+    def delete_movies_by_id(self, ids: list):
+        self._cursor.executemany("DELETE FROM movies WHERE id = ?", [(id,) for id in ids])
+        self._db.commit()
