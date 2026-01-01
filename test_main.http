@@ -43,3 +43,12 @@ Content-Type: application/json
   "year": 2010,
   "actors": "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page"
 }
+
+> {%
+    client.global.set("created_movie_id", response.body.movie_id);
+%}
+
+###
+
+DELETE http://127.0.0.1:8000/movies/{{created_movie_id}}
+Accept: application/json

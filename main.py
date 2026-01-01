@@ -77,4 +77,11 @@ async def get_single_movie(movie_id:int):
 def add_movie(params: dict[str, Any]):
     ms = MoviesStorage.default()
     movie_id = ms.add_movie(params)
-    return {"message": f"Movie added successfully. ID: {movie_id}" }
+    return {"message": f"Movie added successfully. ID: {movie_id}", "movie_id": movie_id}
+
+
+@app.delete("/movies/{movie_id}")
+def delete_movie(movie_id: int):
+    ms = MoviesStorage.default()
+    ms.delete_movies_by_id([movie_id])
+    return {"message": f"Movie with ID {movie_id} deleted successfully."}
