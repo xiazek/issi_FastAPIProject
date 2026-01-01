@@ -1,4 +1,6 @@
 import os
+from typing import Any
+
 import requests
 from fastapi import FastAPI
 
@@ -61,3 +63,10 @@ async def get_single_movie(movie_id:int):
     if movie is None:
         return {"message": "Movie not found"}
     return MoviesStorage.default().find_by_id(movie_id)
+
+
+@app.post("/movies")
+def add_movie(params: dict[str, Any]):
+    ms = MoviesStorage.default()
+    movie_id = ms.add_movie(params)
+    return {"message": f"Movie added successfully. ID: {movie_id}" }

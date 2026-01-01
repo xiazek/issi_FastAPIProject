@@ -29,11 +29,18 @@ class MoviesStorage:
         return self._cursor.fetchall()
 
     def add_movie(self, form: dict):
+        """
+        Adds a new movie to the storage.
+
+        :param form: A dictionary containing 'title', 'year', and 'actors'.
+        :return: The ID of the newly inserted movie.
+        """
         self._cursor.execute(
             "INSERT INTO movies (title, year, actors) VALUES (:title, :year, :actors)",
             {"title": form['title'], "year": form['year'], "actors": form['actors']},
         )
         self._db.commit()
+        return self._cursor.lastrowid
 
     def delete_movies_by_id(self, ids: list):
         self._cursor.executemany("DELETE FROM movies WHERE id = ?", [(id,) for id in ids])
