@@ -1,15 +1,20 @@
 import requests
-
+import os
 from fastapi import FastAPI
 
 from movies_storage import MoviesStorage
 
-app = FastAPI()
-
+debug = os.getenv("DEBUG") == "1"
+app = FastAPI(debug=debug)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello Wo2122211rld1221"}
+    return {"message": "Hello World"}
+
+
+@app.get("/hello/{name}")
+async def say_hello(name: str):
+    return {"message": f"Hello {name}"}
 
 
 @app.get("/sum")
@@ -21,7 +26,15 @@ async def calculate_sum(x: int = 0, y: int = 10):
 async def geocode(lat: float = 50.0680275, lon: float = 19.9098668):
     url = f"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=jsonv2"
 
-    response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
+    headers = {
+        # to imitate a real browser request
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+    response = requests.get(url, headers=headers, timeout=10)
+
+    if response.status_code != 200:
+        return {"error": f"Failed to fetch data, status code: {response.status_code}", "details": response.text}
+
     return response.json()["display_name"]
 
 @app.get("/movies")
@@ -39,12 +52,8 @@ async def get_movies():
     return movies_list
 
 @app.get('/movies/{movie_id}')
-def get_single_movie(movie_id:int):
+async def get_single_movie(movie_id:int):
     movie = MoviesStorage.default().find_by_id(movie_id)
     if movie is None:
         return {"message": "Movie not found"}
     return MoviesStorage.default().find_by_id(movie_id)
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
