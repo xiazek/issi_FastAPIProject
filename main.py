@@ -13,7 +13,7 @@ async def root():
 
 
 @app.get("/sum")
-async def sum(x: int = 0, y: int = 10):
+async def calculate_sum(x: int = 0, y: int = 10):
     return x + y
 
 
@@ -21,14 +21,12 @@ async def sum(x: int = 0, y: int = 10):
 async def geocode(lat: float = 50.0680275, lon: float = 19.9098668):
     url = f"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=jsonv2"
 
-    response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
+    response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
     return response.json()["display_name"]
-    # return {"lat": lat, "lon": lon}
-
 
 @app.get("/movies")
-async def movies():
-    movies = MoviesStorage.default().list()
+async def get_movies():
+    movies_list = MoviesStorage.default().list()
     # output = []
     # for movie in movies:
     #     movie_dict = {
@@ -38,7 +36,7 @@ async def movies():
     #     }
     #     output.append(movie_dict)
     # return output
-    return movies
+    return movies_list
 
 @app.get('/movies/{movie_id}')
 def get_single_movie(movie_id:int):

@@ -15,13 +15,14 @@ dev = [
 ]
 
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.setuptools]
-py-modules = ["main"]
+[tool.hatch.build.targets.wheel]
+packages = ["."]
 
 [tool.pylint]
+ignore = [".venv"]
 max-line-length = 120
 disable = [
     "C0114", # missing-module-docstring
