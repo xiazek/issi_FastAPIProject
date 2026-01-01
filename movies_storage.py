@@ -43,5 +43,7 @@ class MoviesStorage:
         return self._cursor.lastrowid
 
     def delete_movies_by_id(self, ids: list):
-        self._cursor.executemany("DELETE FROM movies WHERE id = ?", [(id,) for id in ids])
+        placeholders = ', '.join(['?'] * len(ids))
+        self._cursor.execute(f"DELETE FROM movies WHERE id IN ({placeholders})", ids)
         self._db.commit()
+        return self._cursor.rowcount

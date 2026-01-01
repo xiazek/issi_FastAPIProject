@@ -52,3 +52,10 @@ Content-Type: application/json
 
 DELETE http://127.0.0.1:8000/movies/{{created_movie_id}}
 Accept: application/json
+
+###
+
+DELETE http://127.0.0.1:8000/movies
+Content-Type: application/json
+
+[1, 2, 3]

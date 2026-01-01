@@ -85,3 +85,10 @@ def delete_movie(movie_id: int):
     ms = MoviesStorage.default()
     ms.delete_movies_by_id([movie_id])
     return {"message": f"Movie with ID {movie_id} deleted successfully."}
+
+
+@app.delete("/movies")
+def delete_movies(ids: list[int]):
+    ms = MoviesStorage.default()
+    count = ms.delete_movies_by_id(ids)
+    return {"message": f"Deleted {count} movies."}
