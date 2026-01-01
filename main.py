@@ -5,9 +5,17 @@ import requests
 from fastapi import FastAPI
 
 from movies_storage import MoviesStorage
+from ensure_movies_db_exists import ensure_movies_db_exists
+
 
 debug = os.getenv("DEBUG") == "1"
 app = FastAPI(debug=debug)
+
+
+@app.on_event("startup")
+async def startup_event():
+    ensure_movies_db_exists()
+
 
 @app.get("/")
 async def root():
