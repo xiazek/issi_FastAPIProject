@@ -1,5 +1,5 @@
-import requests
 import os
+import requests
 from fastapi import FastAPI
 
 from movies_storage import MoviesStorage
@@ -28,7 +28,11 @@ async def geocode(lat: float = 50.0680275, lon: float = 19.9098668):
 
     headers = {
         # to imitate a real browser request
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0.0.0 Safari/537.36"
+        )
     }
     response = requests.get(url, headers=headers, timeout=10)
 

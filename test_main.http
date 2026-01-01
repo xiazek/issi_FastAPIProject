@@ -5,7 +5,32 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/hello/User
+GET http://127.0.0.1:8000/hello/Maciek
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/sum?x=5&y=15
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/geocode
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/geocode?lat=50.0680275&lon=19.9098668
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/movies
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/movies/1
 Accept: application/json
 
 ###
