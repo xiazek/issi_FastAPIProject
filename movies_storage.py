@@ -47,3 +47,18 @@ class MoviesStorage:
         self._cursor.execute(f"DELETE FROM movies WHERE id IN ({placeholders})", ids)
         self._db.commit()
         return self._cursor.rowcount
+
+    def update_movie(self, movie_id: int, form: dict):
+        """
+        Updates an existing movie.
+
+        :param movie_id: The ID of the movie to update.
+        :param form: A dictionary containing 'title', 'year', and 'actors'.
+        :return: True if the movie was updated, False otherwise.
+        """
+        self._cursor.execute(
+            "UPDATE movies SET title = :title, year = :year, actors = :actors WHERE id = :id",
+            {"title": form['title'], "year": form['year'], "actors": form['actors'], "id": movie_id},
+        )
+        self._db.commit()
+        return self._cursor.rowcount > 0

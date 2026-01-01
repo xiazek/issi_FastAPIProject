@@ -92,3 +92,12 @@ def delete_movies(ids: list[int]):
     ms = MoviesStorage.default()
     count = ms.delete_movies_by_id(ids)
     return {"message": f"Deleted {count} movies."}
+
+
+@app.put("/movies/{movie_id}")
+def update_movie(movie_id: int, params: dict[str, Any]):
+    ms = MoviesStorage.default()
+    updated = ms.update_movie(movie_id, params)
+    if not updated:
+        return {"message": "Movie not found"}
+    return {"message": f"Movie with ID {movie_id} updated successfully."}

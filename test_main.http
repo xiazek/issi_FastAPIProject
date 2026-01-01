@@ -55,6 +55,17 @@ Accept: application/json
 
 ###
 
+PUT http://127.0.0.1:8000/movies/{{created_movie_id}}
+Content-Type: application/json
+
+{
+  "title": "Inception - Updated",
+  "year": 2010,
+  "actors": "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page, Tom Hardy"
+}
+
+###
+
 DELETE http://127.0.0.1:8000/movies
 Content-Type: application/json
 
