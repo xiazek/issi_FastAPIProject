@@ -1,0 +1,30 @@
+[project]
+name = "issi_fastapiproject"
+version = "0.1.0"
+description = "A FastAPI project for movie storage"
+dependencies = [
+    "fastapi",
+    "requests",
+]
+requires-python = ">=3.13"
+
+[dependency-groups]
+dev = [
+    "uvicorn",
+    "pylint",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["main"]
+
+[tool.pylint]
+max-line-length = 120
+disable = [
+    "C0114", # missing-module-docstring
+    "C0115", # missing-class-docstring
+    "C0116", # missing-function-docstring
+]
