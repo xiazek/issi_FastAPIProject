@@ -1,20 +1,27 @@
 # Zadanie na zaliczenie przedmiotu "Wybrane zagadnienia z inżynierii oprogramowania"
+
 ## Opis projektu
+
 API do zarządzania filmami, zbudowane przy użyciu FastAPI.
+
 ## Wymagania
 - Python >= 3.13
 - uv (menedżer pakietów dla Pythona)
 - Pełna lista zależności znajduje się w pliku [pyproject.toml](pyproject.toml)
+
 ## Instalacja
+
 1. Sklonuj repozytorium:
 ```bash
 git clone <url-repozytorium>
 cd FastAPIProject
 ```
+
 2. Zainstaluj zależności przy użyciu `uv`:
 ```bash
 uv sync
 ```
+
 ## Baza danych
 
 Przy każdym uruchomieniu aplikacji sprawdzane jest, czy plik bazy danych `movies.db` istnieje. Jeśli nie, zostaje on automatycznie utworzony na podstawie pliku szablonu `movies.db.template`.
@@ -43,19 +50,22 @@ Do testowania endpointów API można użyć pliku `test_main.http`. Jest to form
 
 ## Funkcjonalności
 
-Endpointy API są podzielone na trzy grupy. 
-Uwaga: aplikacja udostępnia dwie wersje obsługi filmów: 
- - wersję opartą na czystym SQL (obsługuje prostą wersję movies.db przy pomocy [klasy MoviesStorage](movies_storage.py))
- - oraz wersję korzystającą z Peewee ORM.
+Endpointy API są podzielone na trzy grupy.
+Uwaga: aplikacja udostępnia dwie wersje obsługi filmów:
+- Wersję opartą na czystym SQL (obsługuje prostą wersję movies.db przy pomocy [klasy MoviesStorage](movies_storage.py))
+- Oraz wersję korzystającą z Peewee ORM.
 
 ### 1. Ogólne endpointy (zdefiniowane w `main.py`)
+
 - `GET /` - Powitanie (Hello World)
 - `GET /hello/{name}` - Powitanie z imieniem
 - `GET /sum` - Obliczanie sumy dwóch liczb (`x`, `y`)
 - `GET /geocode` - Reverse-geocoding na podstawie współrzędnych (`lat`, `lon`)
 
 ### 2. Movies: wersja Pure SQL (dostępna pod prefiksem `/`)
+
 Te endpointy używają `app_movies_pure_sql.py` i operują na bazie `movies.db`.
+
 - `GET /movies` - [Przeglądanie listy filmów](http://127.0.0.1:8000/movies)
 - `GET /movies/{movie_id}` - [Pobieranie szczegółów filmu](http://127.0.0.1:8000/movies/1)
 - `POST /movies` - Dodawanie nowych filmów
@@ -64,7 +74,9 @@ Te endpointy używają `app_movies_pure_sql.py` i operują na bazie `movies.db`.
 - `DELETE /movies` - Masowe usuwanie filmów (lista ID w treści żądania)
 
 ### 3. Movies: wersja ORM (dostępna pod prefiksem `/orm`)
+
 Te endpointy używają `app_movies_orm.py`, modeli Peewee z `orm_models.py` i operują na bazie `movies-extended.db`.
+
 - `GET /orm/movies` - [Przeglądanie listy filmów (ORM)](http://127.0.0.1:8000/orm/movies)
 - `GET /orm/movies/{movie_id}` - [Pobieranie szczegółów filmu (ORM)](http://127.0.0.1:8000/orm/movies/1)
 - `POST /orm/movies` - Dodawanie nowych filmów (ORM)
