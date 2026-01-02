@@ -55,4 +55,3 @@ async def get_orm_single_actor(actor_id:int):
     if actor is None:
         return {"message": "Actor not found"}
     return model_to_dict(actor)
-

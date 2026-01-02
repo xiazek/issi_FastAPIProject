@@ -1,7 +1,6 @@
 import os
 
 import requests
-from fastapi import FastAPI
 
 from ensure_movies_db_exists import ensure_movies_db_exists
 from app_movies_orm import app_movies_orm
