@@ -18,6 +18,7 @@ uv sync
 ## Baza danych
 
 Przy każdym uruchomieniu aplikacji sprawdzane jest, czy plik bazy danych `movies.db` istnieje. Jeśli nie, zostaje on automatycznie utworzony na podstawie pliku szablonu `movies.db.template`.
+To samo dotyczy bazy danych `movies-extended.db` i szablonu `movies-extended.db.template`.
 
 ## Uruchamianie aplikacji
 
@@ -53,7 +54,7 @@ Uwaga: aplikacja udostępnia dwie wersje obsługi filmów:
 - `GET /sum` - Obliczanie sumy dwóch liczb (`x`, `y`)
 - `GET /geocode` - Reverse-geocoding na podstawie współrzędnych (`lat`, `lon`)
 
-### 2. Wersja Pure SQL (dostępna pod prefiksem `/`)
+### 2. Movies: wersja Pure SQL (dostępna pod prefiksem `/`)
 Te endpointy używają `app_movies_pure_sql.py` i operują na bazie `movies.db`.
 - `GET /movies` - [Przeglądanie listy filmów](http://127.0.0.1:8000/movies)
 - `GET /movies/{movie_id}` - [Pobieranie szczegółów filmu](http://127.0.0.1:8000/movies/1)
@@ -62,7 +63,7 @@ Te endpointy używają `app_movies_pure_sql.py` i operują na bazie `movies.db`.
 - `DELETE /movies/{movie_id}` - Usuwanie pojedynczego filmu
 - `DELETE /movies` - Masowe usuwanie filmów (lista ID w treści żądania)
 
-### 3. Wersja ORM (dostępna pod prefiksem `/orm`)
+### 3. Movies: wersja ORM (dostępna pod prefiksem `/orm`)
 Te endpointy używają `app_movies_orm.py`, modeli Peewee z `orm_models.py` i operują na bazie `movies-extended.db`.
 - `GET /orm/movies` - [Przeglądanie listy filmów (ORM)](http://127.0.0.1:8000/orm/movies)
 - `GET /orm/movies/{movie_id}` - [Pobieranie szczegółów filmu (ORM)](http://127.0.0.1:8000/orm/movies/1)
