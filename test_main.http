@@ -70,3 +70,65 @@ DELETE http://127.0.0.1:8000/movies
 Content-Type: application/json
 
 [1, 2, 3]
+
+
+###
+
+GET http://127.0.0.1:8000/orm/movies
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/orm/movies/1
+Accept: application/json
+
+###
+
+POST http://127.0.0.1:8000/orm/movies
+Content-Type: application/json
+
+{
+  "title": "Interstellar",
+  "director": "Christopher Nolan",
+  "year": 2014,
+  "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
+}
+
+> {%
+    client.global.set("created_orm_movie_id", response.body.movie_id);
+%}
+
+###
+
+PUT http://127.0.0.1:8000/orm/movies/{{created_orm_movie_id}}
+Content-Type: application/json
+
+{
+  "title": "Interstellar - Updated",
+  "director": "Christopher Nolan",
+  "year": 2014,
+  "description": "Updated description."
+}
+
+###
+
+DELETE http://127.0.0.1:8000/orm/movies/{{created_orm_movie_id}}
+Accept: application/json
+
+###
+
+DELETE http://127.0.0.1:8000/orm/movies
+Content-Type: application/json
+
+[1, 2, 3]
+
+###
+
+GET http://127.0.0.1:8000/orm/actors
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/orm/actors/1
+Accept: application/json
+

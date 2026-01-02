@@ -17,6 +17,7 @@ ENV/
 
 # Database
 movies.db
+movies-extended.db
 
 # OS
 .DS_Store
