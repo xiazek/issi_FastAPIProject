@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from playhouse.shortcuts import model_to_dict
 
-from movies_orm import Actor, Movie
+from orm_models import Actor, Movie
 
 app_movies_orm = FastAPI()
 

@@ -11,11 +11,8 @@ from app_movies_pure_sql import app_movies_pure_sql
 app = app_movies_pure_sql
 debug = os.getenv("DEBUG") == "1"
 app.debug = debug
-
-
-@app.on_event("startup")
-async def startup_event():
-    ensure_movies_db_exists()
+ensure_movies_db_exists("movies-extended.db")
+ensure_movies_db_exists("movies.db")
 
 
 @app.get("/")

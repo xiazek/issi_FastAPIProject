@@ -4,6 +4,10 @@ from dataclasses import dataclass
 
 @dataclass
 class MoviesStorage:
+    """
+    Handles storage and retrieval of movie data using a PURE SQL approach.
+    See oem_models.py for an ORM version.
+    """
     _db: sqlite3.Connection
     _cursor: sqlite3.Cursor
 
