@@ -1,4 +1,5 @@
 # ORM version
+from typing import Any
 from fastapi import FastAPI
 from playhouse.shortcuts import model_to_dict
 
@@ -17,6 +18,31 @@ async def get_orm_single_movie(movie_id:int):
     if movie is None:
         return {"message": "Movie not found"}
     return model_to_dict(movie)
+
+@app_movies_orm.post("/movies")
+def add_orm_movie(params: dict[str, Any]):
+    movie = Movie.create(**params)
+    return {"message": f"Movie added successfully. ID: {movie.id}", "movie_id": movie.id}
+
+@app_movies_orm.delete("/movies/{movie_id}")
+def delete_orm_movie(movie_id: int):
+    query = Movie.delete().where(Movie.id == movie_id)
+    query.execute()
+    return {"message": f"Movie with ID {movie_id} deleted successfully."}
+
+@app_movies_orm.delete("/movies")
+def delete_orm_movies(ids: list[int]):
+    query = Movie.delete().where(Movie.id << ids)
+    count = query.execute()
+    return {"message": f"Deleted {count} movies."}
+
+@app_movies_orm.put("/movies/{movie_id}")
+def update_orm_movie(movie_id: int, params: dict[str, Any]):
+    query = Movie.update(**params).where(Movie.id == movie_id)
+    updated = query.execute()
+    if not updated:
+        return {"message": "Movie not found"}
+    return {"message": f"Movie with ID {movie_id} updated successfully."}
 
 @app_movies_orm.get("/actors")
 async def get_orm_actors():
