@@ -6,8 +6,8 @@ import os
 import shutil
 import stat
 
-DB_FILE = 'movies.db'
-DB_TEMPLATE = 'movies.db.template'
+DB_FILE = 'movies-extended.db'
+DB_TEMPLATE = 'movies-extended.db.template'
 
 def ensure_movies_db_exists():
     """
