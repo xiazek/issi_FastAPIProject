@@ -38,14 +38,39 @@ Konfiguracja `pylint` znajduje się w pliku [pyproject.toml](pyproject.toml).
 
 ## Testowanie
 
-Do testowania punktów końcowych API można użyć pliku `test_main.http`. Jest to format obsługiwany przez IDE takie jak PyCharm czy VS Code (z odpowiednim rozszerzeniem), który umożliwia bezpośrednie wysyłanie żądań HTTP do uruchomionej aplikacji.
+Do testowania endpointów API można użyć pliku `test_main.http`. Jest to format obsługiwany przez IDE takie jak PyCharm czy VS Code (z odpowiednim rozszerzeniem), który umożliwia bezpośrednie wysyłanie żądań HTTP do uruchomionej aplikacji.
 
 ## Funkcjonalności
-- [Przeglądanie listy filmów](http://127.0.0.1:8000/movies)
-- [Pobieranie szczegółów filmu](http://127.0.0.1:8000/movies/1)
-- Dodawanie nowych filmów
-- Usuwanie filmów (pojedynczo lub masowo)
-- Aktualizacja danych o filmach
-- [Reverse-geokoding na podstawie współrzędnych](http://127.0.0.1:8000/geocode?lat=50.0680275&lon=19.9098668)
 
-Pozostałe funkcjonalności (dodawanie, usuwanie, edycja) można przetestować za pomocą pliku [test_main.http](test_main.http).
+Endpointy API są podzielone na trzy grupy. 
+Uwaga: aplikacja udostępnia dwie wersje obsługi filmów: 
+ - wersję opartą na czystym SQL (obsługuje prostą wersję movies.db przy pomocy [klasy MoviesStorage](movies_storage.py))
+ - oraz wersję korzystającą z Peewee ORM.
+
+### 1. Ogólne endpointy (zdefiniowane w `main.py`)
+- `GET /` - Powitanie (Hello World)
+- `GET /hello/{name}` - Powitanie z imieniem
+- `GET /sum` - Obliczanie sumy dwóch liczb (`x`, `y`)
+- `GET /geocode` - Reverse-geocoding na podstawie współrzędnych (`lat`, `lon`)
+
+### 2. Wersja Pure SQL (dostępna pod prefiksem `/`)
+Te endpointy używają `app_movies_pure_sql.py` i operują na bazie `movies.db`.
+- `GET /movies` - [Przeglądanie listy filmów](http://127.0.0.1:8000/movies)
+- `GET /movies/{movie_id}` - [Pobieranie szczegółów filmu](http://127.0.0.1:8000/movies/1)
+- `POST /movies` - Dodawanie nowych filmów
+- `PUT /movies/{movie_id}` - Aktualizacja danych o filmie
+- `DELETE /movies/{movie_id}` - Usuwanie pojedynczego filmu
+- `DELETE /movies` - Masowe usuwanie filmów (lista ID w treści żądania)
+
+### 3. Wersja ORM (dostępna pod prefiksem `/orm`)
+Te endpointy używają `app_movies_orm.py`, modeli Peewee z `orm_models.py` i operują na bazie `movies-extended.db`.
+- `GET /orm/movies` - [Przeglądanie listy filmów (ORM)](http://127.0.0.1:8000/orm/movies)
+- `GET /orm/movies/{movie_id}` - [Pobieranie szczegółów filmu (ORM)](http://127.0.0.1:8000/orm/movies/1)
+- `POST /orm/movies` - Dodawanie nowych filmów (ORM)
+- `PUT /orm/movies/{movie_id}` - Aktualizacja danych o filmie (ORM)
+- `DELETE /orm/movies/{movie_id}` - Usuwanie pojedynczego filmu (ORM)
+- `DELETE /orm/movies` - Masowe usuwanie filmów (ORM)
+- `GET /orm/actors` - [Przeglądanie listy aktorów (ORM)](http://127.0.0.1:8000/orm/actors)
+- `GET /orm/actors/{actor_id}` - [Pobieranie szczegółów aktora (ORM)](http://127.0.0.1:8000/orm/actors/1)
+
+Pozostałe funkcjonalności (dodawanie, usuwanie, edycja) można przetestować za pomocą pliku [test_main.http](test_main.http) lub dokumentacji Swagger pod adresem `http://127.0.0.1:8000/docs`.
