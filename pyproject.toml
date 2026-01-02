@@ -3,7 +3,7 @@ name = "issi_fastapiproject"
 version = "0.1.0"
 description = "A FastAPI project for movie storage"
 dependencies = [
-    "fastapi",
+    "fastapi[standard]",
     "requests",
 ]
 requires-python = ">=3.13"
