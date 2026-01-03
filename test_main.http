@@ -43,7 +43,6 @@ Content-Type: application/json
   "year": 2010,
   "actors": "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page"
 }
-
 > {%
     client.global.set("created_movie_id", response.body.movie_id);
 %}
@@ -93,7 +92,6 @@ Content-Type: application/json
   "year": 2014,
   "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
 }
-
 > {%
     client.global.set("created_orm_movie_id", response.body.movie_id);
 %}
