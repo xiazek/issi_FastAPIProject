@@ -1,6 +1,8 @@
+import os
 from peewee import SqliteDatabase, Model, CharField, IntegerField, TextField
 
-db = SqliteDatabase('movies-extended.db')
+db_path = os.getenv("MOVIES_EXTENDED_DB", "movies-extended.db")
+db = SqliteDatabase(db_path)
 
 class BaseModel(Model):
 

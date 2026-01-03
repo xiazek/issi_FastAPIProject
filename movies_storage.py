@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from dataclasses import dataclass
 
@@ -13,7 +14,8 @@ class MoviesStorage:
 
     @classmethod
     def default(cls):
-        db = sqlite3.connect('movies.db')
+        db_path = os.getenv("MOVIES_DB", "movies.db")
+        db = sqlite3.connect(db_path)
         db.row_factory = sqlite3.Row  # <-- enables dict-like access
         return cls(_db=db, _cursor=db.cursor())
 
