@@ -27,7 +27,9 @@ def add_orm_movie(params: dict[str, Any]):
 @app_movies_orm.delete("/movies/{movie_id}")
 def delete_orm_movie(movie_id: int):
     query = Movie.delete().where(Movie.id == movie_id)
-    query.execute()
+    count = query.execute()
+    if count == 0:
+        return {"message": f"no movie found by id: {movie_id}"}
     return {"message": f"Movie with ID {movie_id} deleted successfully."}
 
 @app_movies_orm.delete("/movies")

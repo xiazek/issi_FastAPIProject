@@ -27,7 +27,9 @@ def add_movie(params: dict[str, Any]):
 @app_movies_pure_sql.delete("/movies/{movie_id}")
 def delete_movie(movie_id: int):
     ms = MoviesStorage.default()
-    ms.delete_movies_by_id([movie_id])
+    count = ms.delete_movies_by_id([movie_id])
+    if count == 0:
+        return {"message": f"no movie found by id: {movie_id}"}
     return {"message": f"Movie with ID {movie_id} deleted successfully."}
 
 
