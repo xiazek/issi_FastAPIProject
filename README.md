@@ -1,5 +1,7 @@
 # Zadanie na zaliczenie przedmiotu "Wybrane zagadnienia z inżynierii oprogramowania"
 
+[![lint and test](https://github.com/xiazek/issi_FastAPIProject/actions/workflows/lint_and_test.yml/badge.svg)](https://github.com/xiazek/issi_FastAPIProject/actions/workflows/lint_and_test.yml)
+
 ## Opis projektu
 
 API do zarządzania filmami, zbudowane przy użyciu FastAPI.
