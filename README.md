@@ -15,7 +15,7 @@ API do zarządzania filmami, zbudowane przy użyciu FastAPI.
 
 1. Sklonuj repozytorium:
 ```bash
-git clone <url-repozytorium>
+git clone git@github.com:xiazek/issi_FastAPIProject.git
 cd FastAPIProject
 ```
 
@@ -48,8 +48,8 @@ Konfiguracja `pylint` znajduje się w pliku [pyproject.toml](pyproject.toml).
 
 ## Testowanie
 
- - Do testowania endpointów API można użyć pliku `test_main.http`. Jest to format obsługiwany przez IDE takie jak PyCharm czy VS Code (z odpowiednim rozszerzeniem), który umożliwia bezpośrednie wysyłanie żądań HTTP do uruchomionej aplikacji.
- - Pozostałe funkcjonalności (dodawanie, usuwanie, edycja) można przetestować za pomocą pliku [test_main.http](test_main.http) lub dokumentacji Swagger pod adresem `http://127.0.0.1:8000/docs`.
+ - Wszystkie funkcjonalności (dodawanie, usuwanie, edycja itp) można przetestować za pomocą pliku [test_main.http](test_main.http) 
+   lub dokumentacji Swagger pod adresem `http://127.0.0.1:8000/docs`.
  - Najbardziej podstawowe endpointy są testowane w [test_basic_endpoints.py](test_basic_endpoints.py).
 
 ## Funkcjonalności
