@@ -71,9 +71,9 @@ async def add_orm_actor(params: dict[str, Any]):
     actor = Actor.create(**params)
     return {"message": f"Actor added successfully. ID: {actor.id}", "actor_id": actor.id}
 
-@app_movies_orm.put("/actors/{id}")
-async def update_orm_actor(id: int, params: dict[str, Any]):
-    actor = Actor.get_or_none(Actor.id == id)
+@app_movies_orm.put("/actors/{actor_id}")
+async def update_orm_actor(actor_id: int, params: dict[str, Any]):
+    actor = Actor.get_or_none(Actor.id == actor_id)
     if actor is None:
         raise HTTPException(status_code=404, detail="Actor not found")
     for key, value in params.items():
@@ -81,14 +81,17 @@ async def update_orm_actor(id: int, params: dict[str, Any]):
     actor.save()
     return model_to_dict(actor)
 
-@app_movies_orm.delete("/actors/{id}")
-async def delete_orm_actor(id: int):
-    actor = Actor.get_or_none(Actor.id == id)
+@app_movies_orm.delete("/actors/{actor_id}")
+async def delete_orm_actor(actor_id: int):
+    actor = Actor.get_or_none(Actor.id == actor_id)
     if actor is None:
         raise HTTPException(status_code=404, detail="Actor not found")
-    
+
     if actor.movies.count() > 0:
-        raise HTTPException(status_code=400, detail=f"Actor {actor.name} {actor.surname} can not be removed, as it is connected to movies.")
+        raise HTTPException(
+            status_code=400,
+            detail=f"Actor {actor.name} {actor.surname} can not be removed, as it is connected to movies."
+        )
 
     actor.delete_instance()
-    return {"message": f"Actor with ID {id} deleted successfully."}
+    return {"message": f"Actor with ID {actor_id} deleted successfully."}

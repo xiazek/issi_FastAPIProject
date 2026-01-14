@@ -30,7 +30,7 @@ def test_actor_lifecycle():
 
     # UWAGA: idealnie powinniśmy mieć osobną bazę danych dla środowiska testowego.
     # ale na potrzeby tego zadania, lepszy taki test niż żaden.
-    
+
     # 1. Add a new actor with id 20
     actor_data = {
         "id": actor_id,
@@ -40,20 +40,19 @@ def test_actor_lifecycle():
     response = client.post("/orm/actors", json=actor_data)
     assert response.status_code == 200
     assert response.json()["actor_id"] == actor_id
-    
+
     # 2. Update its surname
     update_data = {"surname": "UpdatedSurname"}
     response = client.put(f"/orm/actors/{actor_id}", json=update_data)
     assert response.status_code == 200
     assert response.json()["surname"] == "UpdatedSurname"
-    
+
     # 3. Delete it
     response = client.delete(f"/orm/actors/{actor_id}")
     assert response.status_code == 200
     assert response.json() == {"message": f"Actor with ID {actor_id} deleted successfully."}
-    
+
     # 4. Try to delete an already deleted actor
     response = client.get(f"/orm/actors/{actor_id}")
     assert response.status_code == 404
     assert response.json()["detail"] == "Actor not found"
-
