@@ -28,6 +28,21 @@ async def say_hello(name: str):
 async def calculate_sum(x: int = 0, y: int = 10):
     return x + y
 
+@app.get("subtract")
+async def calculate_subtraction(x: int = 10, y: int = 0):
+    return x - y
+
+@app.get("/multiply")
+async def calculate_multiplication(x: int = 10, y: int = 10):
+    return x * y
+
+@app.get("/divide")
+async def calculate_division(x: int = 10, y: int = 2):
+    if y == 0:
+        return {"error": "Cannot divide by zero"}
+
+    return x / y
+
 
 @app.get("/geocode")
 async def geocode(lat: float = 50.0680275, lon: float = 19.9098668):
