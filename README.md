@@ -64,6 +64,9 @@ Uwaga: aplikacja udostępnia dwie wersje obsługi filmów:
 - `GET /` - Powitanie (Hello World)
 - `GET /hello/{name}` - Powitanie z imieniem
 - `GET /sum` - Obliczanie sumy dwóch liczb (`x`, `y`)
+- `GET /subtract` - Obliczanie różnicy dwóch liczb (`x`, `y`)
+- `GET /multiply` - Obliczanie iloczynu dwóch liczb (`x`, `y`)
+- `GET /divide` - Obliczanie ilorazu dwóch liczb (`x`, `y`)
 - `GET /geocode` - Reverse-geocoding na podstawie współrzędnych (`lat`, `lon`)
 
 ### 2. Movies: wersja Pure SQL (dostępna pod prefiksem `/`)

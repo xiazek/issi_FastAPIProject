@@ -15,6 +15,21 @@ Accept: application/json
 
 ###
 
+GET http://127.0.0.1:8000/subtract?x=20&y=5
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/multiply?x=6&y=7
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/divide?x=100&y=4
+Accept: application/json
+
+###
+
 GET http://127.0.0.1:8000/geocode
 Accept: application/json
 

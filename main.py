@@ -28,7 +28,7 @@ async def say_hello(name: str):
 async def calculate_sum(x: int = 0, y: int = 10):
     return x + y
 
-@app.get("subtract")
+@app.get("/subtract")
 async def calculate_subtraction(x: int = 10, y: int = 0):
     return x - y
 
