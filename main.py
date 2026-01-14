@@ -14,6 +14,12 @@ ensure_movies_db_exists("movies-extended.db")
 ensure_movies_db_exists("movies.db")
 
 
+# UWAGA. Endpointy związane z filmami są zdefiniowane w osobnych plikach:
+# - app_movies_pure_sql.py
+# - app_movies_orm.py
+# szczegóły w README.md
+
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -65,3 +71,7 @@ async def geocode(lat: float = 50.0680275, lon: float = 19.9098668):
 
 
 app.mount("/orm", app_movies_orm)
+# UWAGA! Endpointy związane z filmami są zdefiniowane w osobnych plikach:
+# - app_movies_pure_sql.py
+# - app_movies_orm.py
+# szczegóły w README.md
