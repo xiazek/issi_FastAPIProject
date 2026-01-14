@@ -52,7 +52,8 @@ def test_actor_lifecycle():
     assert response.status_code == 200
     assert response.json() == {"message": f"Actor with ID {actor_id} deleted successfully."}
     
-    # Verify deletion
+    # 4. Try to delete an already deleted actor
     response = client.get(f"/orm/actors/{actor_id}")
-    assert response.status_code == 200
-    assert response.json() == {"message": "Actor not found"}
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Actor not found"
+
