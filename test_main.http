@@ -145,3 +145,28 @@ Accept: application/json
 GET http://127.0.0.1:8000/orm/actors/1
 Accept: application/json
 
+###
+
+POST http://127.0.0.1:8000/orm/actors
+Content-Type: application/json
+
+{
+  "id": 20,
+  "name": "John",
+  "surname": "Doe"
+}
+
+###
+
+PUT http://127.0.0.1:8000/orm/actors/20
+Content-Type: application/json
+
+{
+  "surname": "Smith"
+}
+
+###
+
+DELETE http://127.0.0.1:8000/orm/actors/20
+Accept: application/json
+

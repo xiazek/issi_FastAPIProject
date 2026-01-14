@@ -1,5 +1,6 @@
 # ORM version
 from typing import Any
+
 from fastapi import FastAPI
 from playhouse.shortcuts import model_to_dict
 
@@ -18,6 +19,13 @@ async def get_orm_single_movie(movie_id:int):
     if movie is None:
         return {"message": "Movie not found"}
     return model_to_dict(movie)
+
+@app_movies_orm.get("/movies/{movie_id}/actors")
+async def get_actors_for_movie(movie_id:int):
+    movie = Movie.get_or_none(Movie.id == movie_id)
+    if movie is None:
+        return {"message": "Movie not found"}
+    return [model_to_dict(actor) for actor in movie.actors]
 
 @app_movies_orm.post("/movies")
 def add_orm_movie(params: dict[str, Any]):
@@ -57,3 +65,27 @@ async def get_orm_single_actor(actor_id:int):
     if actor is None:
         return {"message": "Actor not found"}
     return model_to_dict(actor)
+
+@app_movies_orm.post("/actors")
+async def add_orm_actor(params: dict[str, Any]):
+    actor = Actor.create(**params)
+    return {"message": f"Actor added successfully. ID: {actor.id}", "actor_id": actor.id}
+
+@app_movies_orm.put("/actors/{id}")
+async def update_orm_actor(id: int, params: dict[str, Any]):
+    actor = Actor.get_or_none(Actor.id == id)
+    if actor is None:
+        return {"message": "Actor not found"}
+    for key, value in params.items():
+        setattr(actor, key, value)
+    actor.save()
+    return model_to_dict(actor)
+
+@app_movies_orm.delete("/actors/{id}")
+async def delete_orm_actor(id: int):
+    actor = Actor.get_or_none(Actor.id == id)
+    if actor is None:
+        return {"message": "Actor not found"}
+    # TODO: block deletion if actor is still in use
+    actor.delete_instance()
+    return {"message": f"Actor with ID {id} deleted successfully."}
